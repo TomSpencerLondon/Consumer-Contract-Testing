@@ -1,10 +1,49 @@
+### Spring contract testing
+https://cloud.spring.io/spring-cloud-contract/2.1.x/multi/multi__spring_cloud_contract_verifier_introduction.html
 
+https://www.youtube.com/watch?v=9cpXaEr3C5o
 
+Jasvinder S Saggu:
+https://saggu.medium.com/consumer-driven-contracts-using-spring-cloud-contract-f5bce1d01b8a
+
+He also writes about the SAGA distributed transactions pattern:
+https://saggu.medium.com/saga-distributed-transactions-pattern-using-apache-camel-microservices-design-pattern-9625131dbaa2
 
 We run the provider contract tests with:
 ```bash
 mvn clean test
 ```
+
+The groovy script creates this test for us:
+```java
+public class ContractVerifierTest extends CdcBaseClass {
+
+	@Test
+	public void validate_order_for_client1() throws Exception {
+		// given:
+			MockMvcRequestSpecification request = given();
+
+
+		// when:
+			ResponseOptions response = given().spec(request)
+					.get("/orders/1");
+
+		// then:
+			assertThat(response.statusCode()).isEqualTo(200);
+			assertThat(response.header("Content-Type")).matches("application/json.*");
+
+		// and:
+			DocumentContext parsedJson = JsonPath.parse(response.getBody().asString());
+			assertThatJson(parsedJson).field("['orderId']").isEqualTo("1");
+			assertThatJson(parsedJson).field("['itemName']").isEqualTo("Sony TV");
+			assertThatJson(parsedJson).field("['price']").isEqualTo(500.0);
+			assertThatJson(parsedJson).field("['units']").isEqualTo(1);
+	}
+
+}
+
+```
+
 This error shows if we change our API:
 ```bash
 .   ____          _            __ _ _
