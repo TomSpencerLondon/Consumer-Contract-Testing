@@ -9,6 +9,11 @@ https://saggu.medium.com/consumer-driven-contracts-using-spring-cloud-contract-f
 He also writes about the SAGA distributed transactions pattern:
 https://saggu.medium.com/saga-distributed-transactions-pattern-using-apache-camel-microservices-design-pattern-9625131dbaa2
 
+This is the swagger ui:
+![image](https://user-images.githubusercontent.com/27693622/230075087-004e21ea-1d07-4f86-b1fb-a5e381c0ecab.png)
+
+but it doesn't test what we have promised to applications that consume our service.
+
 We run the provider contract tests with:
 ```bash
 mvn clean test
