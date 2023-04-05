@@ -1,7 +1,7 @@
 
 
 
-We run the consumer contract tests with:
+We run the provider contract tests with:
 ```bash
 mvn clean test
 ```
